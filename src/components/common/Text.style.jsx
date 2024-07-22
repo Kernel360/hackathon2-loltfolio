@@ -22,4 +22,8 @@ const Text = styled.span`
     props?.$decorationLine ? props?.$decorationLine : 'none'};
 `;
 
-export { Text };
+const LogoText = styled.span`
+  font-family: 'AbhayaLibreSemiBold';
+`;
+
+export { Text, LogoText };

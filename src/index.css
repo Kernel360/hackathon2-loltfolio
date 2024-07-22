@@ -4,6 +4,12 @@
   src: url('../public/fonts/NanumGothic-Regular.ttf');
 }
 
+@font-face {
+  font-family: 'AbhayaLibreSemiBold';
+  font-weight: normal;
+  src: url('../public/fonts/AbhayaLibre-SemiBold.ttf');
+}
+
 body {
   margin: 0;
   display: flex;
