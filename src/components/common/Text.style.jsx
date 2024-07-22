@@ -13,7 +13,7 @@ const Text = styled.span`
     props?.$height !== undefined ? `${props.$height}` : 'auto'};
   line-height: ${props => (props?.$lineHeight ? props.$lineHeight : '100%')};
   font-size: ${props =>
-    props?.$fontSize ? props.$fontSize : props.theme.fontSize.s};
+    props?.$fontSize ? props.$fontSize : `${props.theme.fontSize.s}px`};
   font-weight: ${props =>
     props?.$fontWeight ? props.$fontWeight : props.theme.fontWeight.bold};
   color: ${props =>
