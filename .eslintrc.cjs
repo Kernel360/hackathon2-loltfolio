@@ -6,8 +6,8 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
-    "stylelint-config-standard",
-    "prettier"
+    'stylelint-config-standard',
+    'prettier',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
@@ -20,4 +20,4 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
-}
+};
