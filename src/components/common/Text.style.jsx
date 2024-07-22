@@ -20,6 +20,7 @@ const Text = styled.span`
     props?.$color ? props.$color : props.theme.color.fontColor};
   text-decoration-line: ${props =>
     props?.$decorationLine ? props?.$decorationLine : 'none'};
+  text-align: ${props => (props?.$textAlign ? props?.$textAlign : 'start')};
 `;
 
 const LogoText = styled.span`
