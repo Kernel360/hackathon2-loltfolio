@@ -9,7 +9,7 @@ const Card = styled.div`
   background-color: ${props =>
     props?.$backgroundColor ? props.$backgroundColor : 'transparent'};
   color: ${props =>
-    props?.$color ? props.$color : props.theme.color.darkSlate};
+    props?.$color ? props.$color : props.theme.color.fontColor};
   text-align: ${props => (props?.$textAlign ? props.$textAlign : 'start')};
 `;
 
