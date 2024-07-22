@@ -20,6 +20,7 @@ const color = Object.freeze({
   backgroundColor: '#FFFFFF',
   fontColor: '#000000',
   mainColor: '#B49254',
+  cardFontColor: 'rgba(180,146,84,0.7)',
 });
 
 const spacing = Object.freeze({

@@ -11,6 +11,8 @@ const Card = styled.div`
   color: ${props =>
     props?.$color ? props.$color : props.theme.color.fontColor};
   text-align: ${props => (props?.$textAlign ? props.$textAlign : 'start')};
+  overflow: ${props => (props?.$overflow ? props.$overflow : 'visible')};
+  box-shadow: ${props => (props?.$boxShadow ? props.$boxShadow : 'none')};
 `;
 
 export { Card };
