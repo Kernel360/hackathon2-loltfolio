@@ -10,7 +10,7 @@ const Input = styled.input`
   letter-spacing: ${props =>
     props?.$letterSpacing ? props.$letterSpacing : '-0.02em'};
   font-size: ${props =>
-    props?.$fontSize ? props.$fontSize : props.theme.fontSize.xs};
+    props?.$fontSize ? props.$fontSize : props.theme.fontSize.s};
   background-color: ${props =>
     props?.$backgroundColor
       ? props.$backgroundColor
