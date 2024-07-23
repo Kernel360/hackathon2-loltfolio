@@ -2,9 +2,9 @@
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
-import AchievementCard from './components/page/AchievementCard.jsx';
-import AchievementLabel from './components/page/AchievementLabel.jsx';
-import AchievementWrapper from './components/page/AchievementWrapper.jsx';
+import AchievementCard from './components/achievement/AchievementCard.jsx';
+import AchievementLabel from './components/achievement/AchievementLabel.jsx';
+import AchievementWrapper from './components/achievement/AchievementWrapper.jsx';
 // import AchievementCard from './components/page/AchievementCard.jsx';
 
 function App() {

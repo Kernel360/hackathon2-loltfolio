@@ -16,7 +16,7 @@ const getMargin = marginList => {
 };
 
 const Margin = styled.div`
-  padding: ${props => getMargin(props.$margin)};
+  margin: ${props => getMargin(props.$margin)};
   box-sizing: border-box;
 `;
 

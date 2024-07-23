@@ -12,9 +12,6 @@ const AchievementContainer = () => {
       <AchievementCard />
       <AchievementCard />
       <AchievementCard />
-      <AchievementCard />
-      <AchievementCard />
-      <AchievementCard />
     </Flex>
   );
 };

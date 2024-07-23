@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Padding, Flex, Img, Text } from '../common';
+import { Card, Padding, Flex, Img, Text } from '../common/index.js';
 import { color, fontSize } from '../../theme/index.js';
 import styled from 'styled-components';
 

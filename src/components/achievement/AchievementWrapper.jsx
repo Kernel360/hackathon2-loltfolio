@@ -5,7 +5,7 @@ import AchievementContainer from './AchievementContainer.jsx';
 
 const AchievementWrapper = () => {
   return (
-    <Container $width="850px" $height="590px">
+    <Container $width="850px" $height="590px" $border={'1px solid blue'}>
       <AchievementLabel />
       <AchievementContainer />
     </Container>
