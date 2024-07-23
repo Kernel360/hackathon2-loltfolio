@@ -1,24 +1,23 @@
-import { Flex as SFlex } from '../common/Flex.style';
 import RoundPic from './RoundPic';
-import * as S from './UserInfo.style';
+import * as S from '../style';
 
 const UserInfo = () => {
   return (
-    <SFlex $width="70%" $justify="space-between">
+    <S.Flex $width="70%" $justify="space-between">
       <div>
-        <SFlex>
+        <S.Flex>
           <div>
             <S.UserNameP>Hide on bush</S.UserNameP>
           </div>
           <div>
             <S.UserTagP>#KR1</S.UserTagP>
           </div>
-        </SFlex>
+        </S.Flex>
         <div>
           <S.UserNickNameP>다재다능한 암살자 요릭</S.UserNickNameP>
         </div>
       </div>
-      <SFlex $width="500px" $justify="space-evenly">
+      <S.Flex $width="500px" $justify="space-evenly">
         <RoundPic
           picSrc={
             'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/2acb7715797d4183b09fdbfb902ff52a0aa4e0cf-496x560.jpg?auto=format&fit=fill&q=80&w=356'
@@ -34,8 +33,8 @@ const UserInfo = () => {
             'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6d9fd040ceab41dbe755f4ac1f6e11aa82548c1e-496x560.jpg?auto=format&fit=fill&q=80&w=356'
           }
         />
-      </SFlex>
-    </SFlex>
+      </S.Flex>
+    </S.Flex>
   );
 };
 

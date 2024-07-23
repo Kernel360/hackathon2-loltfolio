@@ -1,11 +1,10 @@
 import React from 'react';
-import { Text } from '../common/index.js';
-import { Margin } from '../common/Margin.jsx';
+import * as S from '../style';
 
 const AchievementLabel = () => {
   return (
-    <Margin $margin={['0px 0px 24px 0px']}>
-      <Text
+    <S.Margin $margin={['0px 0px 24px 0px']}>
+      <S.Text
         $color="#b49254"
         $fontSize="32px"
         $fontWeight="700"
@@ -13,8 +12,8 @@ const AchievementLabel = () => {
         $lineHeight="150%"
       >
         Username의 업적
-      </Text>
-    </Margin>
+      </S.Text>
+    </S.Margin>
   );
 };
 
