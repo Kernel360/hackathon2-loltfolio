@@ -1,5 +1,4 @@
 import { forwardRef } from 'react';
-import { Box, Button, Flex, Img, Input, Padding } from './../common';
 import searchIcon from '/public/search.png';
 import * as S from '../style';
 
@@ -40,5 +39,7 @@ const SearchBar = forwardRef((props, ref) => {
     </S.Box>
   );
 });
+
+SearchBar.displayName = 'SearchBar';
 
 export { SearchBar };
