@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { Flex, Input, Padding, Button, Img, Box } from './../common';
+import { Box, Button, Flex, Img, Input, Padding } from './../common';
 import searchIcon from '/public/search.png';
 
 const SearchBar = forwardRef((props, ref) => {
@@ -13,8 +13,8 @@ const SearchBar = forwardRef((props, ref) => {
       $border={'1px solid #C3D4E9'}
       $radius={'70px'}
     >
-      <Padding $padding={['10px', '10px', '10px', '32px']}>
-        <Flex $align="center" $justify={'space-between'}>
+      <Padding $width={'100%'} $padding={['10px', '10px', '10px', '3%']}>
+        <Flex $width={'100%'} $align="center" $justify={'space-between'}>
           <Input
             type="search"
             name=""
