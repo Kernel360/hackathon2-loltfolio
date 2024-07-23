@@ -40,9 +40,7 @@ const useGetAxios = url => {
   useEffect(() => {
     const getData = async url => {
       try {
-        const response = await axios.get(
-          `${url}?api_key=${import.meta.env.VITE_RIOT_KEY}`,
-        );
+        const response = await axios.get(url);
         setData(response.data);
         console.log('useGetAxios success');
         console.log(response.data);
