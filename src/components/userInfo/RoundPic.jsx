@@ -1,4 +1,4 @@
-import * as S from './UserInfo.style';
+import * as S from '../style';
 
 const RoundPic = props => {
   const psrc = props.picSrc;

@@ -1,28 +1,28 @@
-import { Flex, Img, Text, Padding, Card } from '@/components/common';
 import { fontSize } from '@/theme';
+import * as S from '../style';
 
 const TypeDescriptionCard = props => {
   const { imgSrc, title, description } = props;
 
   return (
-    <Card $width={'275px'}>
-      <Flex $direction={'column'} $align={'center'}>
-        <Img src={imgSrc} $width={'275px'} $height={'477px'} />
-        <Padding $padding={['24px', '0px', '24px', '0px']}>
-          <Text
+    <S.Card $width={'275px'}>
+      <S.Flex $direction={'column'} $align={'center'}>
+        <S.Img src={imgSrc} $width={'275px'} $height={'477px'} />
+        <S.Padding $padding={['24px', '0px', '24px', '0px']}>
+          <S.Text
             $fontSize={'24px'}
             $lineHeight={'150%'}
             $textAlign={'center'}
             $fontWeight={400}
           >
             {title}
-          </Text>
-        </Padding>
-        <Text $lineHeight={'150%'} $fontSize={fontSize.m}>
+          </S.Text>
+        </S.Padding>
+        <S.Text $lineHeight={'150%'} $fontSize={fontSize.m}>
           {description}
-        </Text>
-      </Flex>
-    </Card>
+        </S.Text>
+      </S.Flex>
+    </S.Card>
   );
 };
 
