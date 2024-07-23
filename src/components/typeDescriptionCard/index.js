@@ -1,0 +1,1 @@
+export { TypeDescriptionCard } from './TypeDescriptionCard';

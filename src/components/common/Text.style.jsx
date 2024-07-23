@@ -23,6 +23,7 @@ const Text = styled.span`
   background-color: ${props =>
     props?.$backgroundColor ? props.$backgroundColor : 'transparent'};
   text-shadow: ${props => (props?.$textShadow ? props.$textShadow : 'none')};
+  text-align: ${props => (props?.$textAlign ? props?.$textAlign : 'start')};
 `;
 
 const LogoText = styled.span`
