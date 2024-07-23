@@ -1,4 +1,4 @@
-import { Container, Flex } from '../common';
+import * as S from '../style';
 import { Header } from '../header';
 import { TypeDescriptionCard } from '../typeDescriptionCard';
 import UserInfo from '../userInfo/UserInfo';
@@ -12,22 +12,27 @@ const description =
 
 const MainPage = () => {
   return (
-    <Container>
-      <Flex $width="100%" $direction={'column'} $align={'center'}>
+    <S.Container $width={'100vw'}>
+      <S.Flex
+        $width="100%"
+        $direction={'column'}
+        $align={'center'}
+        $gap={'64px'}
+      >
         <Header />
-        <Flex $width="100%">
+        <S.Flex $width="100%" $justify={'center'} $gap={'48px'}>
           <TypeDescriptionCard
             imgSrc={imageUrl}
             title={title}
             description={description}
           />
-          <Flex $direction={'column'}>
+          <S.Flex $direction={'column'} $gap={'64px'}>
             <UserInfo $direction={'column'} />
             <AchievementWrapper />
-          </Flex>
-        </Flex>
-      </Flex>
-    </Container>
+          </S.Flex>
+        </S.Flex>
+      </S.Flex>
+    </S.Container>
   );
 };
 

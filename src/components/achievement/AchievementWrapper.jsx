@@ -5,7 +5,7 @@ import * as S from '../style';
 
 const AchievementWrapper = () => {
   return (
-    <S.Container $width="850px" $height="590px" $border={'1px solid blue'}>
+    <S.Container $width="850px" $height="590px">
       <AchievementLabel />
       <AchievementContainer />
     </S.Container>
