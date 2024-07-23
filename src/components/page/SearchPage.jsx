@@ -5,7 +5,7 @@ import * as S from '../style';
 const SearchPage = () => {
   return (
     <S.Container
-      $width="1440px"
+      $width="100vw"
       $height="100vh"
       $display="flex"
       $justify="center"

@@ -3,7 +3,7 @@ import * as S from '../style';
 
 const UserInfo = () => {
   return (
-    <S.Flex $width="70%" $justify="space-between">
+    <S.Flex $width="100%" $justify="space-between">
       <div>
         <S.Flex>
           <div>
