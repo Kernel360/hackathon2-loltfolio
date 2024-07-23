@@ -15,7 +15,7 @@ const Container = styled.div`
       ? props.$backgroundColor
       : props?.theme.color.backgroundColor};
   font-size: ${props =>
-    props?.$fontSize ? props.$fontSize : props.theme.fontSize.m};
+    props?.$fontSize ? props.$fontSize : `${props.theme.fontSize.m}px`};
   font-weight: ${props =>
     props?.$fontWeight ? props.$fontWeight : props.theme.fontWeight.medium};
 `;

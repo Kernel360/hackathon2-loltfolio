@@ -1,4 +1,3 @@
-import { Flex, Container as SContainer } from '../common/index';
 import { Logo } from '../logo';
 import { SearchBar } from '../searchBar';
 import * as S from '../style';
@@ -6,7 +5,7 @@ import * as S from '../style';
 const SearchPage = () => {
   return (
     <S.Container
-      $width="1440px"
+      $width="100vw"
       $height="100vh"
       $display="flex"
       $justify="center"
