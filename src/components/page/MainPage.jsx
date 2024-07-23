@@ -3,7 +3,6 @@ import { Header } from '../header';
 import { TypeDescriptionCard } from '../typeDescriptionCard';
 import UserInfo from '../userInfo/UserInfo';
 import { AchievementWrapper } from '../achievement/index.js';
-import * as S from '../style';
 
 const imageUrl =
   'https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Amumu_0.jpg';
