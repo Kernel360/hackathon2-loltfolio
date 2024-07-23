@@ -8,6 +8,7 @@ const Flex = styled.div`
   align-items: ${props => (props?.$align ? props.$align : 'start')};
   gap: ${props => (props?.$gap ? props.$gap : 0)};
   flex-wrap: ${props => (props?.$wrap ? props.$wrap : 'nowrap')};
+  margin: ${props => (props?.$margin ? props.$margin : '0')};
 `;
 
 export { Flex };
