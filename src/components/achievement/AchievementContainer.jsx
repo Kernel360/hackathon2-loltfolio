@@ -1,5 +1,5 @@
 import React from 'react';
-import AchievementCard from './AchievementCard.jsx';
+import { AchievementCard } from './AchievementCard.jsx';
 import * as S from '../style';
 
 const AchievementContainer = () => {
@@ -16,4 +16,4 @@ const AchievementContainer = () => {
   );
 };
 
-export default AchievementContainer;
+export { AchievementContainer };

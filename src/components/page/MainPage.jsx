@@ -1,8 +1,8 @@
-import { Container, Flex } from '../common';
 import { Header } from '../header';
 import { TypeDescriptionCard } from '../typeDescriptionCard';
 import UserInfo from '../userInfo/UserInfo';
-import AchievementWrapper from '../achievement/AchievementWrapper';
+import { AchievementWrapper } from '../achievement/index.js';
+import * as S from '../style';
 
 const imageUrl =
   'https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Amumu_0.jpg';
@@ -12,22 +12,22 @@ const description =
 
 const MainPage = () => {
   return (
-    <Container>
-      <Flex $width="100%" $direction={'column'} $align={'center'}>
+    <S.Container>
+      <S.Flex $width="100%" $direction={'column'} $align={'center'}>
         <Header />
-        <Flex $width="100%">
+        <S.Flex $width="100%">
           <TypeDescriptionCard
             imgSrc={imageUrl}
             title={title}
             description={description}
           />
-          <Flex $direction={'column'}>
+          <S.Flex $direction={'column'}>
             <UserInfo $direction={'column'} />
-            <AchievementWrapper />
-          </Flex>
-        </Flex>
-      </Flex>
-    </Container>
+            <AchievementWrapper username="" />
+          </S.Flex>
+        </S.Flex>
+      </S.Flex>
+    </S.Container>
   );
 };
 

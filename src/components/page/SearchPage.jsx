@@ -1,4 +1,3 @@
-import { Flex, Container as SContainer } from '../common/index';
 import { Logo } from '../logo';
 import { SearchBar } from '../searchBar';
 import * as S from '../style';

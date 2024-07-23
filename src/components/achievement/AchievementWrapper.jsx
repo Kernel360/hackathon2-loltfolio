@@ -1,15 +1,15 @@
 import React from 'react';
-import AchievementLabel from './AchievementLabel.jsx';
-import AchievementContainer from './AchievementContainer.jsx';
+import { AchievementLabel } from './AchievementLabel.jsx';
+import { AchievementContainer } from './AchievementContainer.jsx';
 import * as S from '../style';
 
-const AchievementWrapper = () => {
+const AchievementWrapper = ({ username }) => {
   return (
     <S.Container $width="850px" $height="590px" $border={'1px solid blue'}>
-      <AchievementLabel />
+      <AchievementLabel username={username} />
       <AchievementContainer />
     </S.Container>
   );
 };
 
-export default AchievementWrapper;
+export { AchievementWrapper };
