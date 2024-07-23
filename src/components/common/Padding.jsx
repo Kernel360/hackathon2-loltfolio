@@ -18,6 +18,7 @@ const getPadding = paddingList => {
 const Padding = styled.div`
   height: 100%;
   padding: ${props => getPadding(props.$padding)};
+  box-sizing: border-box;
 `;
 
 export { Padding };
