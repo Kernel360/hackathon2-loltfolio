@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { KEYS } from '../apis/index';
 
 // const axios = require('axios');
 
 const useAxios = () => {
-  const API_KEY = KEYS;
   const [data, setData] = useState(null);
 
   const doAxios = url => {
+    console.log(`${url}?api_key=${import.meta.env.VITE_RIOT_KEY}`);
+
     axios
-      .get(`${url}?api_key=${API_KEY}`)
+      .get(`${url}?api_key=${import.meta.env.VITE_RIOT_KEY}`)
       .then(function (response) {
         // 성공 핸들링
         setData(response.data);
