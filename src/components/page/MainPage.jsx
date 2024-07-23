@@ -2,7 +2,8 @@ import * as S from '../style';
 import { Header } from '../header';
 import { TypeDescriptionCard } from '../typeDescriptionCard';
 import UserInfo from '../userInfo/UserInfo';
-import AchievementWrapper from '../achievement/AchievementWrapper';
+import { AchievementWrapper } from '../achievement/index.js';
+import * as S from '../style';
 
 const imageUrl =
   'https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Amumu_0.jpg';
@@ -28,7 +29,7 @@ const MainPage = () => {
           />
           <S.Flex $direction={'column'} $gap={'64px'}>
             <UserInfo $direction={'column'} />
-            <AchievementWrapper />
+            <AchievementWrapper username="" />
           </S.Flex>
         </S.Flex>
       </S.Flex>

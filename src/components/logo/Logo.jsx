@@ -7,8 +7,7 @@ const Logo = () => {
       <S.Text
         $width={'234px'}
         $height={'68px'}
-        $fontSize={`${fontSize.xxxxl}px
-  `}
+        $fontSize={`${fontSize.xxxxl}px`}
         $color={color.mainColor}
       >
         Loltfolio
