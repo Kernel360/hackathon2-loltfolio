@@ -31,5 +31,9 @@ export const UserFlexDiv = styled.div`
 export const UserProfileImg = styled.img`
   width: 130px;
   height: 130px;
-  border-radius: 500px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+
+
 `;

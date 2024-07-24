@@ -1,38 +1,62 @@
+import React, { useState, useEffect } from 'react';
 import RoundPic from './RoundPic';
 import * as S from '../style';
+import championData from '../../../public/champion.json';
 
-const UserInfo = () => {
+const UserInfo = ({ gameName, tagLine, puuid }) => {
+  const [imageUrls, setImageUrls] = useState([]);
+
+  useEffect(() => {
+    const fetchChampionData = async () => {
+      const url = `https://kr.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}/top?count=3&api_key=${import.meta.env.VITE_RIOT_KEY}`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        const championIdsArr = data.map(i => i.championId);
+
+        const championArray = Object.values(championData.data);
+        const urls = championIdsArr.map(championId => {
+          const champion = championArray.find(
+            champion => champion.key == championId,
+          );
+          if (champion) {
+            return `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion.id}_0.jpg`;
+          }
+          return null;
+        });
+
+        setImageUrls(urls);
+      } catch (error) {
+        console.error('Failed to fetch champion data:', error);
+      }
+    };
+
+    fetchChampionData();
+  }, [puuid]);
+
   return (
     <S.Flex $width="100%" $justify="space-between">
       <div>
         <S.Flex>
           <div>
-            <S.UserNameP>Hide on bush</S.UserNameP>
+            <S.UserNameP>{gameName}</S.UserNameP>
           </div>
           <div>
-            <S.UserTagP>#KR1</S.UserTagP>
+            <S.UserTagP>{tagLine}</S.UserTagP>
           </div>
         </S.Flex>
         <div>
-          <S.UserNickNameP>다재다능한 암살자 요릭</S.UserNickNameP>
+          <S.UserNickNameP>{/* 닉네임 추가할 수 있음 */}</S.UserNickNameP>
         </div>
       </div>
       <S.Flex $width="500px" $justify="space-evenly">
-        <RoundPic
-          picSrc={
-            'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/2acb7715797d4183b09fdbfb902ff52a0aa4e0cf-496x560.jpg?auto=format&fit=fill&q=80&w=356'
-          }
-        />
-        <RoundPic
-          picSrc={
-            'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/dde9ede0cd3013a28dc29b98d25caf3e4b79348f-496x560.jpg?auto=format&fit=fill&q=80&w=356'
-          }
-        />
-        <RoundPic
-          picSrc={
-            'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6d9fd040ceab41dbe755f4ac1f6e11aa82548c1e-496x560.jpg?auto=format&fit=fill&q=80&w=356'
-          }
-        />
+        {imageUrls.map(
+          (url, index) => url && <RoundPic key={index} picSrc={url} />,
+        )}
       </S.Flex>
     </S.Flex>
   );
