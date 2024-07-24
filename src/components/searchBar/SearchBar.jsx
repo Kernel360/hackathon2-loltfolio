@@ -3,7 +3,7 @@ import searchIcon from '/public/search.png';
 import * as S from '../style';
 
 const SearchBar = forwardRef((props, ref) => {
-  const { onClick = () => {}, onKeyDown = e => {} } = props;
+  const { onClick = () => {} ,onKeyUp=e=>{}} = props;
   // 검색 버튼 클릭시, 입력후 엔터 시에 이벤트 핸들러 함수
 
   return (
@@ -23,7 +23,9 @@ const SearchBar = forwardRef((props, ref) => {
             $width={'350px'}
             $height={'20px'}
             ref={ref}
-            onKeyDown={e => onKeyDown(e)}
+            
+            onKeyUp={e => onKeyUp(e)}
+            
           />
           <S.Button $width={'24px'} $height={'24px'} onClick={onClick}>
             <S.Img

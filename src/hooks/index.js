@@ -3,9 +3,15 @@ import { useState, useCallback, useEffect } from 'react';
 
 const useAxios = () => {
   const [data, setData] = useState(null);
-
+  const [error, setError] = useState(null);
+  const isLoading = data === null;
+  const isError = error !== null;
+  
+  //초기에는 실행x
   const doAxios = url => {
     console.log(`${url}?api_key=${import.meta.env.VITE_RIOT_KEY}`);
+
+    setError(null);//이전 error 초기화
 
     axios
       .get(`${url}?api_key=${import.meta.env.VITE_RIOT_KEY}`)
@@ -13,10 +19,14 @@ const useAxios = () => {
         // 성공 핸들링
         setData(response.data);
         console.log(response.data);
+        setError(null);//axios 성공시 error 초기화
       })
       .catch(function (error) {
         // 에러 핸들링
+        setError(error);
+        console.log('error');
         console.log(error);
+        setData(null); //axios 실패시 data 초기화
       })
       .finally(function () {
         // 항상 실행되는 영역
@@ -24,12 +34,17 @@ const useAxios = () => {
       });
   };
 
+
+
   const getAxios = useCallback(url => {
     doAxios(url);
   }, []);
 
-  return { data, getAxios };
+  console.log(isError);
+  return { data, getAxios, isLoading, isError, error };
 };
+
+
 
 const useGetAxios = url => {
   const [data, setData] = useState(null);
