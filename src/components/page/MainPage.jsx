@@ -53,7 +53,14 @@ const MainContent = () => {
         <TypeDescriptionCard matchInfoList={matchInfoList} puuid={puuid} />
       </Suspense>
       <S.Flex $direction={'column'} $gap={'64px'}>
-        <UserInfo $direction={'column'} />
+        <Suspense fallback={<h1>loading main content</h1>}>
+          <UserInfo
+            $direction={'column'}
+            gameName={gameName}
+            tagLine={tagLine}
+            puuid={puuid}
+          />
+        </Suspense>
         <AchievementWrapper username="" />
       </S.Flex>
     </S.Flex>
