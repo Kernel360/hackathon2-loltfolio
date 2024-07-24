@@ -1,33 +1,57 @@
+import { Suspense, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import * as S from '../style';
 import { Header } from '../header';
 import { TypeDescriptionCard } from '../typeDescriptionCard';
 import UserInfo from '../userInfo/UserInfo';
 import { AchievementWrapper } from '../achievement/index.js';
-import { useParams } from 'react-router-dom';
-import { Suspense } from 'react';
 import { getFetchWithSuspense } from '../../apis/getFetchWithSuspense';
-
-const imageUrl =
-  'https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Amumu_0.jpg';
-const title = '자연은, 언제나 자신이 받은 것 이상으로 베푼다네.';
-const description =
-  '이 유형은 아군 정글에서 미니언을 처치하여 팀 자원을 적극적으로 활용하는 플레이 스타일을 의미합니다. 이 유형은 안정적인 성장과 게임의 리소스를 최대한 활용하여 팀의 전반적인 골드와 경험치를 증가시키는 전략을 사용합니다.';
+import {
+  MATCH_COUNT_LENGTH,
+  API_KEY,
+  MATCH_INFO_LIST,
+} from '../../constants/index.js';
 
 //페이지 컴포넌트로부터 메인 컨텐츠 분리
 const MainContent = () => {
   //params에서 gameName,tagLine 받아와서 api호출 후 puuid가져오기
   const { gameName, tagLine } = useParams();
-  const url = `/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${import.meta.env.VITE_RIOT_KEY}`;
-  const response = getFetchWithSuspense(url).read();
-  const puuid = response.puuid;
+  const [matchInfoList, setMatchInfoList] = useState([...MATCH_INFO_LIST]);
+
+  const getIdUrl = `/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${API_KEY}`;
+  const { puuid } = getFetchWithSuspense(getIdUrl).read();
+  const getMatchIdListUrl = `/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=${MATCH_COUNT_LENGTH}&api_key=${API_KEY}`;
+  const matchIdList = getFetchWithSuspense(getMatchIdListUrl).read();
+
+  useEffect(() => {
+    const fetchMatchInfo = async () => {
+      const fetchPromises = matchIdList.map(matchId => {
+        const getMatchInfoUrl = `/lol/match/v5/matches/${matchId}?api_key=${API_KEY}`;
+        return axios.get(getMatchInfoUrl).then(response => response.data);
+      });
+
+      try {
+        const results = await Promise.all(fetchPromises);
+        console.log(results);
+        setMatchInfoList([...results]);
+      } catch (error) {
+        console.error('Error fetching match info:', error);
+      }
+    };
+
+    // fetchMatchInfo(); waterfall 해결. API 호출 방지를 위해 미사용.
+  }, [matchIdList]);
+
+  if (matchInfoList.length === 0) {
+    return <h1>loading match info list</h1>;
+  }
 
   return (
     <S.Flex $width="100%" $justify={'center'} $gap={'48px'}>
-      <TypeDescriptionCard
-        imgSrc={imageUrl}
-        title={title}
-        description={description}
-      />
+      <Suspense fallback={<h1>TypeDescriptionCard Loading</h1>}>
+        <TypeDescriptionCard matchInfoList={matchInfoList} puuid={puuid} />
+      </Suspense>
       <S.Flex $direction={'column'} $gap={'64px'}>
         <UserInfo $direction={'column'} />
         <AchievementWrapper username="" />
