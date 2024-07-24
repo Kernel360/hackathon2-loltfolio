@@ -23,6 +23,12 @@ export default defineConfig({
         // WebSocket 프로토콜 사용
         ws: true,
       },
+      '/lol': {
+        target: RIOT_API,
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+      },
     },
   },
 });
