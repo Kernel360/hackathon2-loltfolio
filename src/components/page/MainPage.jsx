@@ -18,8 +18,7 @@ const MainContent = () => {
   //params에서 gameName,tagLine 받아와서 api호출 후 puuid가져오기
   const { gameName, tagLine } = useParams();
   const url = `/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${import.meta.env.VITE_RIOT_KEY}`;
-  const response = getFetchWithSuspense(url).read();
-  const puuid = response.puuid;
+  const { puuid } = getFetchWithSuspense(url).read();
 
   return (
     <S.Flex $width="100%" $justify={'center'} $gap={'48px'}>
@@ -29,7 +28,14 @@ const MainContent = () => {
         description={description}
       />
       <S.Flex $direction={'column'} $gap={'64px'}>
-        <UserInfo $direction={'column'} />
+        <Suspense fallback={<h1>loading main content</h1>}>
+          <UserInfo
+            $direction={'column'}
+            gameName={gameName}
+            tagLine={tagLine}
+            puuid={puuid}
+          />
+        </Suspense>
         <AchievementWrapper username="" />
       </S.Flex>
     </S.Flex>
