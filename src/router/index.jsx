@@ -9,5 +9,6 @@ export const router = createBrowserRouter([
   {
     path: '/:gameName/:tagLine',
     element: <MainPage />,
+    errorElement: <h1>Error</h1>,
   },
 ]);
