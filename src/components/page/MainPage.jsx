@@ -17,8 +17,8 @@ import {
 const MainContent = () => {
   //params에서 gameName,tagLine 받아와서 api호출 후 puuid가져오기
   const { gameName, tagLine } = useParams();
-  const [matchInfoList, setMatchInfoList] = useState([...MATCH_INFO_LIST]);
-  //const [matchInfoList, setMatchInfoList] = useState([]);
+  //const [matchInfoList, setMatchInfoList] = useState([...MATCH_INFO_LIST]);
+  const [matchInfoList, setMatchInfoList] = useState([]);
 
   const getIdUrl = `/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${API_KEY}`;
   const { puuid } = getFetchWithSuspense(getIdUrl).read();
@@ -41,7 +41,7 @@ const MainContent = () => {
       }
     };
 
-    // fetchMatchInfo(); // waterfall 해결. API 호출 방지를 위해 미사용.
+    fetchMatchInfo(); // waterfall 해결. API 호출 방지를 위해 미사용.
   }, [matchIdList]);
 
   if (matchInfoList.length === 0) {
