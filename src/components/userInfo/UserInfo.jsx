@@ -2,41 +2,62 @@ import React, { useState, useEffect } from 'react';
 import RoundPic from './RoundPic';
 import * as S from '../style';
 import championData from '../../../public/champion.json';
+import { getUserStatus } from '../../utils';
+import * as P from '../../constants/phrases';
+import axios from 'axios';
 
-const UserInfo = ({ gameName, tagLine, puuid }) => {
+
+
+const UserInfo = ({ gameName, tagLine, puuid ,matchInfoList}) => {
   const [imageUrls, setImageUrls] = useState([]);
+  const [nickname, setNickname] = useState(''); // 이름 상태 관리
+
+  console.log('UserInfo: in');
+  console.log(matchInfoList);
 
   useEffect(() => {
-    const fetchChampionData = async () => {
-      const url = `https://kr.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}/top?count=3&api_key=${import.meta.env.VITE_RIOT_KEY}`;
+    const getKDAstats = (matchInfoList) => {
+      // 총합 변수 초기화
+      let TOTAL_kills = 0;
+      let TOTAL_deaths = 0;
+      let TOTAL_assists = 0;
 
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        const championIdsArr = data.map(i => i.championId);
-
-        const championArray = Object.values(championData.data);
-        const urls = championIdsArr.map(championId => {
-          const champion = championArray.find(
-            champion => champion.key == championId,
-          );
-          if (champion) {
-            return `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion.id}_0.jpg`;
-          }
-          return null;
+      // matchInfoList가 배열인지 확인하고, 배열인 경우만 forEach 실행
+      if (Array.isArray(matchInfoList)) {
+        matchInfoList.forEach((matchInfo) => {
+          const { status } = getUserStatus(matchInfo, puuid);
+          TOTAL_kills =+ status.kills;
+          TOTAL_deaths =+ status.deaths;
+          TOTAL_assists =+ status.assists;
         });
 
-        setImageUrls(urls);
-      } catch (error) {
-        console.error('Failed to fetch champion data:', error);
+        // KDA 계산 후 nickname 반환
+        const getRoleNickname = (kills, deaths, assists) => {
+          if (deaths < assists && assists < kills) {
+            return '원거리 딜러';
+          } else if (assists < deaths && deaths < kills) {
+            return '암살자';
+          } else if (deaths < kills && kills < assists) {
+            return '전사';
+          } else if (kills < deaths && deaths < assists) {
+            return '탱커';
+          } else if (assists < kills && kills < deaths) {
+            return '마법사';
+          } else if (kills < assists && assists < deaths) {
+            return '서포터';
+          } else {
+            return '해당 없음';
+          }
+        };
+
+        const roleNickname = getRoleNickname(TOTAL_kills, TOTAL_deaths, TOTAL_assists);
+        setNickname(roleNickname);
       }
     };
 
-    fetchChampionData();
-  }, [puuid]);
+    getKDAstats(matchInfoList);
+  }, []);
+
 
   return (
     <S.Flex $width="100%" $justify="space-between">
@@ -50,12 +71,12 @@ const UserInfo = ({ gameName, tagLine, puuid }) => {
           </div>
         </S.Flex>
         <div>
-          <S.UserNickNameP>{/* 닉네임 추가할 수 있음 */}</S.UserNickNameP>
+          <S.UserNickNameP>{nickname}</S.UserNickNameP>
         </div>
       </div>
       <S.Flex $width="500px" $justify="space-evenly">
         {imageUrls.map(
-          (url, index) => url && <RoundPic key={index} picSrc={url} />,
+          (url, index) => url && <RoundPic key={index} picSrc={url} />
         )}
       </S.Flex>
     </S.Flex>
