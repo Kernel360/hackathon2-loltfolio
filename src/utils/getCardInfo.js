@@ -22,7 +22,7 @@ const TOTAL_CARD_INFO_LIST = [
     itemId: 3222,
   }),
   createCardInfo({
-    cardName: '바론과 함께라면',
+    cardName: '바론과',
     cardDescription: '바론 버프를 통한 골드 이득이 임계값을 초과한 횟수입니다.',
     condition: data => data.baronBuffGoldAdvantageOverThreshold > 0,
     itemId: 1083,

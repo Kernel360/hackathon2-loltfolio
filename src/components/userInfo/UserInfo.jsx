@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import RoundPic from './RoundPic';
 import * as S from '../style';
 import championData from '../../../public/champion.json';
-import { getUserStatus } from '../../utils';
+import { getCardInfoList, getUserStatus } from '../../utils';
 //import * as P from '../../constants/phrases';
-import axios from 'axios';
 
-
-
-const UserInfo = ({ gameName, tagLine, puuid ,matchInfoList}) => {
+const UserInfo = ({ gameName, tagLine, puuid, matchInfoList }) => {
   const [imageUrls, setImageUrls] = useState([]);
   const [nickname, setNickname] = useState(''); // 이름 상태 관리
-
-  console.log('UserInfo: in');
-  console.log(matchInfoList);
+  const [mostChampionId, setMostChampionId] = useState(null);
+  const [championName, setChampionName] = useState(null);
+  const [modifier, setModifire] = useState(null);
 
   useEffect(() => {
     const fetchChampionData = async () => {
@@ -26,6 +23,7 @@ const UserInfo = ({ gameName, tagLine, puuid ,matchInfoList}) => {
         }
         const data = await response.json();
         const championIdsArr = data.map(i => i.championId);
+        setMostChampionId(championIdsArr[0]);
 
         const championArray = Object.values(championData.data);
         const urls = championIdsArr.map(championId => {
@@ -47,10 +45,8 @@ const UserInfo = ({ gameName, tagLine, puuid ,matchInfoList}) => {
     fetchChampionData();
   }, [puuid]);
 
-
   useEffect(() => {
-
-    const getKDAstats = (matchInfoList) => {
+    const getKDAstats = matchInfoList => {
       // 총합 변수 초기화
       let TOTAL_kills = 0;
       let TOTAL_deaths = 0;
@@ -58,15 +54,12 @@ const UserInfo = ({ gameName, tagLine, puuid ,matchInfoList}) => {
 
       // matchInfoList가 배열인지 확인하고, 배열인 경우만 forEach 실행
       if (Array.isArray(matchInfoList)) {
-        matchInfoList.forEach((matchInfo) => {
+        matchInfoList.forEach(matchInfo => {
           const { status } = getUserStatus(matchInfo, puuid);
-          TOTAL_kills =+ status.kills;
-          TOTAL_deaths =+ status.deaths;
-          TOTAL_assists =+ status.assists;
+          TOTAL_kills = +status.kills;
+          TOTAL_deaths = +status.deaths;
+          TOTAL_assists = +status.assists;
         });
-        console.log(TOTAL_kills);
-        console.log(TOTAL_deaths);
-        console.log(TOTAL_assists);
 
         // KDA 계산 후 nickname 반환
         const getRoleNickname = (kills, deaths, assists) => {
@@ -87,14 +80,47 @@ const UserInfo = ({ gameName, tagLine, puuid ,matchInfoList}) => {
           }
         };
 
-        const roleNickname = getRoleNickname(TOTAL_kills, TOTAL_deaths, TOTAL_assists);
+        const roleNickname = getRoleNickname(
+          TOTAL_kills,
+          TOTAL_deaths,
+          TOTAL_assists,
+        );
         setNickname(roleNickname);
       }
     };
 
+    const cardInfoList = getCardInfoList(matchInfoList, puuid);
+    console.log(cardInfoList);
+    const length = cardInfoList.length;
+
+    const getRandomInt = max => {
+      return Math.floor(Math.random() * max);
+    };
+
+    const randomIndex = getRandomInt(length);
+    console.log(randomIndex);
+    const { cardName } = cardInfoList[randomIndex];
+    setModifire(cardName);
+
     getKDAstats(matchInfoList);
   }, []);
 
+  useEffect(() => {
+    if (!mostChampionId) {
+      return;
+    }
+
+    const championObj = Object.values(championData.data);
+
+    for (const championInfo of championObj) {
+      //console.log(championInfo.key);
+      if (Number(championInfo.key) === mostChampionId) {
+        const { name } = championInfo;
+        console.log(name);
+        setChampionName(name);
+      }
+    }
+  }, [mostChampionId]);
 
   return (
     <S.Flex $width="100%" $justify="space-between">
@@ -108,12 +134,14 @@ const UserInfo = ({ gameName, tagLine, puuid ,matchInfoList}) => {
           </div>
         </S.Flex>
         <div>
-          <S.UserNickNameP>{nickname}</S.UserNickNameP>
+          <S.UserNickNameP>
+            {modifier} {nickname} {championName}
+          </S.UserNickNameP>
         </div>
       </div>
       <S.Flex $width="500px" $justify="space-evenly">
         {imageUrls.map(
-          (url, index) => url && <RoundPic key={index} picSrc={url} />
+          (url, index) => url && <RoundPic key={index} picSrc={url} />,
         )}
       </S.Flex>
     </S.Flex>
