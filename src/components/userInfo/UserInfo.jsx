@@ -3,7 +3,7 @@ import RoundPic from './RoundPic';
 import * as S from '../style';
 import championData from '../../../public/champion.json';
 import { getUserStatus } from '../../utils';
-import * as P from '../../constants/phrases';
+//import * as P from '../../constants/phrases';
 import axios from 'axios';
 
 
@@ -16,6 +16,40 @@ const UserInfo = ({ gameName, tagLine, puuid ,matchInfoList}) => {
   console.log(matchInfoList);
 
   useEffect(() => {
+    const fetchChampionData = async () => {
+      const url = `https://kr.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}/top?count=3&api_key=${import.meta.env.VITE_RIOT_KEY}`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        const championIdsArr = data.map(i => i.championId);
+
+        const championArray = Object.values(championData.data);
+        const urls = championIdsArr.map(championId => {
+          const champion = championArray.find(
+            champion => champion.key == championId,
+          );
+          if (champion) {
+            return `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion.id}_0.jpg`;
+          }
+          return null;
+        });
+
+        setImageUrls(urls);
+      } catch (error) {
+        console.error('Failed to fetch champion data:', error);
+      }
+    };
+
+    fetchChampionData();
+  }, [puuid]);
+
+
+  useEffect(() => {
+
     const getKDAstats = (matchInfoList) => {
       // 총합 변수 초기화
       let TOTAL_kills = 0;
@@ -30,20 +64,23 @@ const UserInfo = ({ gameName, tagLine, puuid ,matchInfoList}) => {
           TOTAL_deaths =+ status.deaths;
           TOTAL_assists =+ status.assists;
         });
+        console.log(TOTAL_kills);
+        console.log(TOTAL_deaths);
+        console.log(TOTAL_assists);
 
         // KDA 계산 후 nickname 반환
         const getRoleNickname = (kills, deaths, assists) => {
-          if (deaths < assists && assists < kills) {
+          if (deaths <= assists && assists <= kills) {
             return '원거리 딜러';
-          } else if (assists < deaths && deaths < kills) {
+          } else if (assists <= deaths && deaths <= kills) {
             return '암살자';
-          } else if (deaths < kills && kills < assists) {
+          } else if (deaths <= kills && kills <= assists) {
             return '전사';
-          } else if (kills < deaths && deaths < assists) {
+          } else if (kills <= deaths && deaths <= assists) {
             return '탱커';
-          } else if (assists < kills && kills < deaths) {
+          } else if (assists <= kills && kills <= deaths) {
             return '마법사';
-          } else if (kills < assists && assists < deaths) {
+          } else if (kills <= assists && assists <= deaths) {
             return '서포터';
           } else {
             return '해당 없음';

@@ -41,7 +41,7 @@ const MainContent = () => {
       }
     };
 
-    // fetchMatchInfo(); waterfall 해결. API 호출 방지를 위해 미사용.
+    // fetchMatchInfo(); // waterfall 해결. API 호출 방지를 위해 미사용.
   }, [matchIdList]);
 
   if (matchInfoList.length === 0) {
@@ -60,6 +60,7 @@ const MainContent = () => {
             gameName={gameName}
             tagLine={tagLine}
             puuid={puuid}
+            matchInfoList={matchInfoList}
           />
         </Suspense>
         <AchievementWrapper
