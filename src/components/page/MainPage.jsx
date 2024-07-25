@@ -54,7 +54,7 @@ const MainContent = () => {
         <TypeDescriptionCard matchInfoList={matchInfoList} puuid={puuid} />
       </Suspense>
       <S.Flex $direction={'column'} $gap={'64px'}>
-        <Suspense fallback={<h1>loading main content</h1>}>
+        <Suspense fallback={<h1>loading user info</h1>}>
           <UserInfo
             $direction={'column'}
             gameName={gameName}
