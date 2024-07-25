@@ -2,9 +2,17 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import { RIOT_API } from './src/apis';
 
+const IS_DEV = process.env.NODE_ENV !== "production"
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react({
+    babel: {
+      plugins: IS_DEV
+        ? ['babel-plugin-styled-components']
+        : [],
+    }
+  })],
   resolve: {
     alias: [{ find: '@', replacement: '/src' }],
   },
