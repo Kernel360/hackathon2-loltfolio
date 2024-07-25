@@ -18,6 +18,7 @@ const MainContent = () => {
   //params에서 gameName,tagLine 받아와서 api호출 후 puuid가져오기
   const { gameName, tagLine } = useParams();
   const [matchInfoList, setMatchInfoList] = useState([...MATCH_INFO_LIST]);
+  //const [matchInfoList, setMatchInfoList] = useState([]);
 
   const getIdUrl = `/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${API_KEY}`;
   const { puuid } = getFetchWithSuspense(getIdUrl).read();
@@ -61,7 +62,11 @@ const MainContent = () => {
             puuid={puuid}
           />
         </Suspense>
-        <AchievementWrapper username="" />
+        <AchievementWrapper
+          username={gameName}
+          matchInfoList={matchInfoList}
+          puuid={puuid}
+        />
       </S.Flex>
     </S.Flex>
   );
