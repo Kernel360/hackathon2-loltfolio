@@ -23,7 +23,7 @@ const UserInfo = ({ gameName, tagLine, puuid, matchInfoList }) => {
         }
         const data = await response.json();
         const championIdsArr = data.map(i => i.championId);
-        setMostChampionId(championIdsArr[0] ?? 1);
+        setMostChampionId(championIdsArr[0]);
 
         const championArray = Object.values(championData.data);
         const urls = championIdsArr.map(championId => {
@@ -116,6 +116,7 @@ const UserInfo = ({ gameName, tagLine, puuid, matchInfoList }) => {
       //console.log(championInfo.key);
       if (Number(championInfo.key) === mostChampionId) {
         const { name } = championInfo;
+        console.log(name);
         setChampionName(name);
       }
     }
